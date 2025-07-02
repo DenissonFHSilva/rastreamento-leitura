@@ -1,0 +1,6 @@
+pandas
+openpyxl
+schedule
+requests
+flask
+pdfplumber
