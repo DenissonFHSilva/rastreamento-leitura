@@ -1,8 +1,9 @@
-flask 2.3.2
-pdfplumber
-PyPDF2
-requests
-openpyxl
-pandas
-gunicorn         # Usado no deploy com Render
-python-dotenv    # (opcional) caso queira usar arquivos .env no futuro
+flask==2.3.2           # Framework web (servidor de rastreamento)
+gunicorn               # Usado no deploy com Render
+pdfplumber             # Leitura de PDFs com OCR
+PyPDF2                 # Manipulação de PDFs
+requests               # Requisições HTTP (Telegram, etc.)
+openpyxl               # Manipulação de planilhas Excel
+pandas                 # Análise de dados (clientes.xlsx, log)
+schedule               # (opcional) agendamentos automatizados
+python-dotenv          # (opcional) para arquivos .env no futuro
