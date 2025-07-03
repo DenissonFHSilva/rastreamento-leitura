@@ -19,13 +19,16 @@ def buscar_dados_cliente(cnpj):
 def enviar_email_smtp(cnpj, anexos):
     destino, responsavel, empresa = buscar_dados_cliente(cnpj)
 
+    # ✉️ Criação da mensagem
     msg = EmailMessage()
     msg['Subject'] = f"Documentos do Departamento Pessoal – {empresa}"
     msg['From'] = REMETENTE
     msg['To'] = destino
 
-    link_confirmacao = f"http://10.0.0.106:5000/confirmar/{cnpj}"
+    # 🔗 Link de confirmação com domínio do Render
+    link_confirmacao = f"https://rastreamento-leitura.onrender.com/confirmar/{cnpj}"
 
+    # 📄 Corpo do e-mail (HTML + texto alternativo)
     corpo_html = f"""
     <html>
     <body style="font-family: sans-serif;">
@@ -55,6 +58,7 @@ Departamento Pessoal
     msg.set_content(corpo_texto)
     msg.add_alternative(corpo_html, subtype='html')
 
+    # 📎 Anexando arquivos PDF
     for caminho_anexo in anexos:
         try:
             with open(caminho_anexo, 'rb') as f:
@@ -64,6 +68,7 @@ Departamento Pessoal
         except Exception as e:
             print(f"❌ Erro ao anexar {caminho_anexo}: {e}")
 
+    # 📤 Envio via SMTP com SSL (Gmail)
     context = ssl.create_default_context()
     with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
         smtp.login(SMTP_EMAIL, SMTP_SENHA)
@@ -71,6 +76,7 @@ Departamento Pessoal
 
     print(f"[SMTP] ✅ E-mail enviado para {empresa} → {destino}")
 
+    # 📝 Log local + Telegram
     registrar_envio(cnpj, destino, empresa, anexos)
     mensagem = f"📬 Documentos enviados para *{empresa}*\n📧 Email: {destino}"
     enviar_telegram(mensagem)
