@@ -1,0 +1,8 @@
+flask 2.3.2
+pdfplumber
+PyPDF2
+requests
+openpyxl
+pandas
+gunicorn         # Usado no deploy com Render
+python-dotenv    # (opcional) caso queira usar arquivos .env no futuro

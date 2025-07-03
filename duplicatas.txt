@@ -1,0 +1,72 @@
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\duplicatas\clientes_gui.py
+DUPLICADO DE:
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\clientes_gui.py
+
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\duplicatas\main.py
+DUPLICADO DE:
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\main.py
+
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\duplicatas\manual.py
+DUPLICADO DE:
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\manual.py
+
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\duplicatas\readme.md
+DUPLICADO DE:
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\readme.md
+
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\duplicatas\registro.db
+DUPLICADO DE:
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\registro.db
+
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\duplicatas\requirements.txt
+DUPLICADO DE:
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\requirements.txt
+
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\duplicatas\testar_telegram.py
+DUPLICADO DE:
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\testar_telegram.py
+
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\duplicatas\warn-clientes_gui.txt
+DUPLICADO DE:
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\build\clientes_gui\warn-clientes_gui.txt
+
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\duplicatas\xref-clientes_gui.html
+DUPLICADO DE:
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\build\clientes_gui\xref-clientes_gui.html
+
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\rastreamento_leitura\src\agendador.py
+DUPLICADO DE:
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\duplicatas\agendador.py
+
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\rastreamento_leitura\src\agrupador.py
+DUPLICADO DE:
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\duplicatas\agrupador.py
+
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\rastreamento_leitura\src\config.py
+DUPLICADO DE:
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\duplicatas\config.py
+
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\rastreamento_leitura\src\extrair_cnpj.py
+DUPLICADO DE:
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\duplicatas\extrair_cnpj.py
+
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\rastreamento_leitura\src\log_envios.py
+DUPLICADO DE:
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\duplicatas\log_envios.py
+
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\rastreamento_leitura\webhook\servidor.py
+DUPLICADO DE:
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\duplicatas\servidor.py
+
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\rastreamento_leitura\src\smtp_envio.py
+DUPLICADO DE:
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\duplicatas\smtp_envio.py
+
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\rastreamento_leitura\src\telegram.py
+DUPLICADO DE:
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\duplicatas\telegram.py
+
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\rastreamento_leitura\src\__init__.py
+DUPLICADO DE:
+C:\Users\Dencle\Desktop\dp_automacao_mailgun\duplicatas\__init__.py
+
