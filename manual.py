@@ -3,7 +3,7 @@ import re
 import shutil
 from collections import defaultdict
 from PyPDF2 import PdfReader
-from src.smtp_envio import enviar_email_smtp  # Certifique-se de que esse módulo está ok
+from src.smtp_envio import enviar_email_smtp
 
 PASTA_PDFS = 'entrada_pdf'
 PASTA_ENVIADOS = 'enviados'

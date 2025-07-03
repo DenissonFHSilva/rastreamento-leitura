@@ -19,16 +19,13 @@ def buscar_dados_cliente(cnpj):
 def enviar_email_smtp(cnpj, anexos):
     destino, responsavel, empresa = buscar_dados_cliente(cnpj)
 
-    # ✉️ Criação do e-mail
     msg = EmailMessage()
     msg['Subject'] = f"Documentos do Departamento Pessoal – {empresa}"
     msg['From'] = REMETENTE
     msg['To'] = destino
 
-    # 🔗 Link de rastreamento (ajuste conforme ambiente)
     link_confirmacao = f"http://10.0.0.106:5000/confirmar/{cnpj}"
 
-    # HTML
     corpo_html = f"""
     <html>
     <body style="font-family: sans-serif;">
@@ -44,7 +41,6 @@ def enviar_email_smtp(cnpj, anexos):
     </html>
     """
 
-    # Texto alternativo
     corpo_texto = f"""Olá {responsavel},
 
 Segue em anexo os documentos do período referentes à empresa {empresa}.
@@ -59,7 +55,6 @@ Departamento Pessoal
     msg.set_content(corpo_texto)
     msg.add_alternative(corpo_html, subtype='html')
 
-    # 📎 Anexos
     for caminho_anexo in anexos:
         try:
             with open(caminho_anexo, 'rb') as f:
@@ -69,7 +64,6 @@ Departamento Pessoal
         except Exception as e:
             print(f"❌ Erro ao anexar {caminho_anexo}: {e}")
 
-    # 📤 Envio com SMTP + SSL
     context = ssl.create_default_context()
     with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
         smtp.login(SMTP_EMAIL, SMTP_SENHA)
@@ -77,7 +71,6 @@ Departamento Pessoal
 
     print(f"[SMTP] ✅ E-mail enviado para {empresa} → {destino}")
 
-    # 🔹 Log + Telegram
     registrar_envio(cnpj, destino, empresa, anexos)
     mensagem = f"📬 Documentos enviados para *{empresa}*\n📧 Email: {destino}"
     enviar_telegram(mensagem)
