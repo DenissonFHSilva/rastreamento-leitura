@@ -1,6 +1,6 @@
 {
-  "TELEGRAM_TOKEN": "",
-  "TELEGRAM_CHAT_ID": "",
-  "EMAIL_REMETENTE": "",
+  "TELEGRAM_TOKEN": "8164925261:AAF1DszfFGF27ZX0OG92_povESMPaT34pcE",
+  "TELEGRAM_CHAT_ID": "7652316605",
+  "EMAIL_REMETENTE": "Denisson <seu_email@seudominio.com>",
   "LINK_RASTREAMENTO": "https://rastreamento-leitura.onrender.com"
 }

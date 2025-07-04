@@ -11,6 +11,7 @@ app = Flask(__name__)
 # 📌 Caminho absoluto para o banco de dados
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(BASE_DIR, 'registro.db')
+print(f"📁 Caminho do banco de dados em uso: {DB_PATH}")
 
 # 🔐 Função para registrar a confirmação de leitura
 def registrar_confirmacao(cnpj, ip):
@@ -79,15 +80,18 @@ def ping():
 @app.route('/leituras')
 def listar_leituras():
     try:
+        print("📡 Rota /leituras acessada.")
         conn = sqlite3.connect(DB_PATH)
         c = conn.cursor()
         c.execute("SELECT cnpj, ip, data_hora FROM leitura_confirmada ORDER BY id DESC")
         registros = c.fetchall()
         conn.close()
 
+        print(f"📊 Registros encontrados: {len(registros)}")
         dados = [{"cnpj": cnpj, "ip": ip, "data_hora": data_hora} for cnpj, ip, data_hora in registros]
         return jsonify(dados)
     except Exception as e:
+        print(f"❌ Erro ao acessar rota /leituras: {e}")
         return jsonify({"erro": f"Falha ao acessar leituras: {e}"}), 500
 
 # ▶️ Executa localmente ou no Render
