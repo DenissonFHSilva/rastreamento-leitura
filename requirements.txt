@@ -1,8 +1,0 @@
-Flask==2.3.2
-pdfplumber
-PyPDF2
-requests
-openpyxl
-pandas
-gunicorn
-python-dotenv

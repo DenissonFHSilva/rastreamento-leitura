@@ -1,1 +1,0 @@
-web: gunicorn rastreador:app
