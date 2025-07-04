@@ -69,7 +69,7 @@ def ping():
         return f"❌ Erro ao testar Telegram: {e}"
 
 # 📊 Nova rota: listar confirmações em JSON
-@app.route('/leituras')
+@app.route('/leituras') # Rota para exibição remota no painel (launcher)
 def listar_leituras():
     try:
         conn = sqlite3.connect(DB_PATH)
