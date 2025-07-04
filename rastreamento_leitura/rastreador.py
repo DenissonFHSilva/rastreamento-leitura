@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 from datetime import datetime
 import sqlite3
 import os
@@ -6,7 +6,7 @@ from src.telegram import enviar_telegram  # ou from telegram import enviar_teleg
 
 app = Flask(__name__)
 
-# 📌 Caminho absoluto para o banco de dados, sempre dentro da pasta do script
+# 📌 Caminho absoluto para o banco de dados
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(BASE_DIR, 'registro.db')
 
@@ -14,7 +14,6 @@ DB_PATH = os.path.join(BASE_DIR, 'registro.db')
 def registrar_confirmacao(cnpj, ip):
     conn = None
     try:
-        # Conecta ao banco e cria a tabela se não existir
         conn = sqlite3.connect(DB_PATH)
         c = conn.cursor()
         c.execute('''
@@ -26,7 +25,6 @@ def registrar_confirmacao(cnpj, ip):
             )
         ''')
 
-        # Insere nova confirmação
         data_hora = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         c.execute(
             'INSERT INTO leitura_confirmada (cnpj, ip, data_hora) VALUES (?, ?, ?)',
@@ -34,10 +32,8 @@ def registrar_confirmacao(cnpj, ip):
         )
         conn.commit()
 
-        # 🖨️ Log local
         print(f'✅ CNPJ {cnpj} confirmou leitura às {data_hora} (IP: {ip})')
 
-        # 📬 Notifica via Telegram
         mensagem = (
             f"✅ *Confirmação de leitura recebida*\n"
             f"📌 CNPJ: *{cnpj}*\n"
@@ -53,7 +49,7 @@ def registrar_confirmacao(cnpj, ip):
         if conn:
             conn.close()
 
-# 🌐 Rota principal de confirmação
+# 🌐 Rota de confirmação
 @app.route('/confirmar/<cnpj>')
 def confirmar(cnpj):
     ip = request.headers.get('X-Forwarded-For', request.remote_addr)
@@ -61,10 +57,9 @@ def confirmar(cnpj):
 
     ano = datetime.now().year
     horario = datetime.now().strftime('%d/%m/%Y %H:%M:%S')
-
     return render_template('confirmacao.html', cnpj=cnpj, horario=horario, ano=ano)
 
-# 🧪 Rota de teste para validar envio via Telegram
+# 🧪 Rota de teste
 @app.route('/ping')
 def ping():
     try:
@@ -73,7 +68,22 @@ def ping():
     except Exception as e:
         return f"❌ Erro ao testar Telegram: {e}"
 
-# ▶️ Executa localmente ou em produção (Render)
+# 📊 Nova rota: listar confirmações em JSON
+@app.route('/leituras')
+def listar_leituras():
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        c = conn.cursor()
+        c.execute("SELECT cnpj, ip, data_hora FROM leitura_confirmada ORDER BY id DESC")
+        registros = c.fetchall()
+        conn.close()
+
+        dados = [{"cnpj": cnpj, "ip": ip, "data_hora": data_hora} for cnpj, ip, data_hora in registros]
+        return jsonify(dados)
+    except Exception as e:
+        return jsonify({"erro": f"Falha ao acessar leituras: {e}"}), 500
+
+# ▶️ Executa localmente ou em produção
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
