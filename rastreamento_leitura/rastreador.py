@@ -5,13 +5,19 @@ import os
 from src.telegram import enviar_telegram  # ou from telegram import enviar_telegram, se estiver fora da pasta 'src'
 
 app = Flask(__name__)
+
+# 📌 Caminho para o banco de dados
 DB_PATH = 'registro.db'
 
+# 🔐 Função para registrar a confirmação de leitura
 def registrar_confirmacao(cnpj, ip):
     try:
-        # Garante que a pasta do banco existe, se aplicável
-        os.makedirs(os.path.dirname(DB_PATH), exist_ok=True) if os.path.dirname(DB_PATH) else None
+        # Cria diretório do banco, se necessário
+        pasta_db = os.path.dirname(DB_PATH)
+        if pasta_db:
+            os.makedirs(pasta_db, exist_ok=True)
 
+        # Conecta ao banco e cria a tabela, se não existir
         conn = sqlite3.connect(DB_PATH)
         c = conn.cursor()
         c.execute('''
@@ -23,6 +29,7 @@ def registrar_confirmacao(cnpj, ip):
             )
         ''')
 
+        # Registra os dados
         data_hora = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         c.execute(
             'INSERT INTO leitura_confirmada (cnpj, ip, data_hora) VALUES (?, ?, ?)',
@@ -30,9 +37,10 @@ def registrar_confirmacao(cnpj, ip):
         )
         conn.commit()
 
+        # 📣 Log local
         print(f'✅ CNPJ {cnpj} confirmou leitura às {data_hora} (IP: {ip})')
 
-        # 🔔 Notifica via Telegram
+        # 📲 Notifica via Telegram
         mensagem = (
             f"✅ *Confirmação de leitura recebida*\n"
             f"📌 CNPJ: *{cnpj}*\n"
@@ -43,11 +51,11 @@ def registrar_confirmacao(cnpj, ip):
 
     except Exception as e:
         print(f'❌ Erro ao registrar confirmação ou enviar Telegram: {e}')
-
     finally:
         if 'conn' in locals():
             conn.close()
 
+# 🌐 Rota principal de confirmação
 @app.route('/confirmar/<cnpj>')
 def confirmar(cnpj):
     ip = request.headers.get('X-Forwarded-For', request.remote_addr)
@@ -58,7 +66,7 @@ def confirmar(cnpj):
 
     return render_template('confirmacao.html', cnpj=cnpj, horario=horario, ano=ano)
 
-# 🔧 Rota de teste opcional para validar envio manual do Telegram
+# 🧪 Rota de teste para validar o Telegram
 @app.route('/ping')
 def ping():
     try:
@@ -67,7 +75,7 @@ def ping():
     except Exception as e:
         return f"❌ Erro ao testar Telegram: {e}"
 
-# ▶️ Executa localmente ou no Render
+# ▶️ Executa localmente ou em produção (Render)
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
