@@ -6,18 +6,14 @@ from src.telegram import enviar_telegram  # ou from telegram import enviar_teleg
 
 app = Flask(__name__)
 
-# 📌 Caminho para o banco de dados
-DB_PATH = 'registro.db'
+# 📌 Caminho absoluto para o banco de dados, sempre dentro da pasta do script
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_PATH = os.path.join(BASE_DIR, 'registro.db')
 
 # 🔐 Função para registrar a confirmação de leitura
 def registrar_confirmacao(cnpj, ip):
     conn = None
     try:
-        # Garante que a pasta do banco exista (caso haja subdiretório)
-        pasta = os.path.dirname(DB_PATH)
-        if pasta:
-            os.makedirs(pasta, exist_ok=True)
-
         # Conecta ao banco e cria a tabela se não existir
         conn = sqlite3.connect(DB_PATH)
         c = conn.cursor()
