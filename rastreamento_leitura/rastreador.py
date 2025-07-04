@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template
 from datetime import datetime
 import sqlite3
+import os
 from src.telegram import enviar_telegram  # ou from telegram import enviar_telegram, se estiver fora da pasta 'src'
 
 app = Flask(__name__)
@@ -35,7 +36,7 @@ def registrar_confirmacao(cnpj, ip):
 
 @app.route('/confirmar/<cnpj>')
 def confirmar(cnpj):
-    ip = request.remote_addr
+    ip = request.headers.get('X-Forwarded-For', request.remote_addr)
     registrar_confirmacao(cnpj, ip)
 
     # Dados para o template
@@ -44,6 +45,7 @@ def confirmar(cnpj):
 
     return render_template('confirmacao.html', cnpj=cnpj, horario=horario, ano=ano)
 
-# Para ambiente local apenas:
+# Compatível com ambiente local e Render.com
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
