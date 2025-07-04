@@ -1,4 +1,5 @@
-# Atualização forçada para garantir deploy com rota /leituras
+# ✅ API de rastreamento com rota /leituras disponível
+
 from flask import Flask, request, render_template, jsonify
 from datetime import datetime
 import sqlite3
@@ -50,7 +51,12 @@ def registrar_confirmacao(cnpj, ip):
         if conn:
             conn.close()
 
-# 🌐 Rota de confirmação
+# 🏠 Rota raiz para evitar erro 404
+@app.route('/')
+def home():
+    return '✅ API de rastreamento ativa. Acesse /leituras para ver os dados.'
+
+# 🌐 Rota de confirmação de leitura
 @app.route('/confirmar/<cnpj>')
 def confirmar(cnpj):
     ip = request.headers.get('X-Forwarded-For', request.remote_addr)
@@ -60,7 +66,7 @@ def confirmar(cnpj):
     horario = datetime.now().strftime('%d/%m/%Y %H:%M:%S')
     return render_template('confirmacao.html', cnpj=cnpj, horario=horario, ano=ano)
 
-# 🧪 Rota de teste
+# 🧪 Rota de teste de Telegram
 @app.route('/ping')
 def ping():
     try:
@@ -69,8 +75,8 @@ def ping():
     except Exception as e:
         return f"❌ Erro ao testar Telegram: {e}"
 
-# 📊 Nova rota: listar confirmações em JSON
-@app.route('/leituras') # Rota para exibição remota no painel (launcher)
+# 📊 Rota de leitura dos registros
+@app.route('/leituras')
 def listar_leituras():
     try:
         conn = sqlite3.connect(DB_PATH)
@@ -84,7 +90,7 @@ def listar_leituras():
     except Exception as e:
         return jsonify({"erro": f"Falha ao acessar leituras: {e}"}), 500
 
-# ▶️ Executa localmente ou em produção
+# ▶️ Executa localmente ou no Render
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
