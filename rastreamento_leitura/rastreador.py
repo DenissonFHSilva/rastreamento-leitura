@@ -1,3 +1,4 @@
+# Atualização forçada para garantir deploy com rota /leituras
 from flask import Flask, request, render_template, jsonify
 from datetime import datetime
 import sqlite3
