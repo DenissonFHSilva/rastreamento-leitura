@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recebimento Confirmado</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f9f9f9;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .box {
+      background: #fff;
+      max-width: 500px;
+      margin: auto;
+      padding: 40px 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+    img.logo {
+      max-height: 60px;
+      margin-bottom: 20px;
+    }
+    .icon {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+    .cnpj {
+      margin-top: 20px;
+      font-size: 15px;
+      color: #444;
+    }
+    footer {
+      margin-top: 30px;
+      font-size: 13px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <img src="/static/logo.png" class="logo" alt="Logo">
+    <div class="icon">📬</div>
+    <h2>Recebimento Confirmado</h2>
+    <p>Obrigado! Sua confirmação foi registrada com sucesso.</p>
+    <div class="cnpj"><strong>CNPJ:</strong> {{ cnpj }}</div>
+    <div class="cnpj"><strong>Data/Hora:</strong> {{ horario }}</div>
+    <footer>DP Automação © {{ ano }}</footer>
+  </div>
+</body>
+</html>
