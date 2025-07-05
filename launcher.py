@@ -6,6 +6,8 @@ import json
 import requests
 import sqlite3
 
+from src.config import LINK_RASTREAMENTO
+
 # Configurações iniciais
 COR_FUNDO = "#f2f2f2"
 FONTE_TITULO = ("Segoe UI", 18, "bold")
